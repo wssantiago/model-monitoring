@@ -3,6 +3,7 @@ from utils.preprocessing import data_preprocessing
 import pandas as pd
 
 
+# Reads the model using pickle
 def read_model():
     try:
         model_file = open('../model.pkl', 'rb')
@@ -13,6 +14,7 @@ def read_model():
         print(fnf)
 
 
+# Reads the desired local dataset
 def read_db(db):
     try:
         df = pd.read_csv('../../datasets/credit_01/' + db + '.gz',

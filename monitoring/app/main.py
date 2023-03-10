@@ -6,6 +6,7 @@ from api.routers import router
 from api.endpoints.performance import calc_performance
 from api.endpoints.aderencia import calc_aderencia
 
+# Setting the logger formatting and poiting to correct file.
 import logging
 logging.basicConfig(filename='./monitoring.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
@@ -20,11 +21,15 @@ async def read_root():
     return {"Hello World": "from FastAPI"}
 
 
+# View latest performance POST response.
 @app.get("/performance/", status_code=status.HTTP_200_OK)
 async def read_performance():
     return data['latest-performance']
 
 
+# The POST request calls calc_performance for determining the metrics.
+# The request body is defined as a list of dictionaries and the response
+# model is a dictionary with both volumetry and roc score.
 @app.post("/performance/{model_from}", response_model=dict, status_code=status.HTTP_201_CREATED)
 async def write_performance(model_from: str, json_data: List[dict]):
     
@@ -38,11 +43,16 @@ async def write_performance(model_from: str, json_data: List[dict]):
     return performance
 
 
+# View latest aderencia POST response.
 @app.get("/aderencia/", status_code=status.HTTP_200_OK)
 async def read_aderencia():
     return data['latest-aderencia']
 
 
+# The POST request calls calc_aderencia for determining the metrics.
+# The request body is defined as a dictionary, as well as the response model.
+# The request one is a single key dictionary whose value is the relative path to the dataset.
+# The response one has keys containing the KS test returned metrics.
 @app.post("/aderencia/", response_model=dict, status_code=status.HTTP_201_CREATED)
 async def write_aderencia(path: dict):
 
