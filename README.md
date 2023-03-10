@@ -74,6 +74,9 @@ Ao enviar um POST para se calcular as métricas resultantes do teste estatístic
    - Em [./monitoring/monitoring.log](monitoring/monitoring.log) é possível verificar algumas informações acerca do processamento das requisições feitas para a API. Essas informações são formatadas e adicionadas nesse arquivo utilizando ```logging``` da *standard library* de python.
 
 
+### Jupyter Notebook
+
+   - Em [./monitoring/monitoring-examples.ipynb](/monitoring/monitoring-examples.ipynb) tem-se exemplos de execução de POSTs nos endpoints da API.
 
 
 
