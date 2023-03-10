@@ -44,7 +44,15 @@ Em [./monitoring/app/main.py](monitoring/app/main.py) estão referenciados dois 
    - Ao fazer uma requisição POST para esse endpoint, espera-se um "body" da requisição como um  ```dict```. Esse dicionário contém uma única chave com valor referente ao caminho para o dataset de input definido localmente.
    - Após realizar um método POST nesse endpoint, o usuário pode também escolher visualizar a última resposta dessa requisição realizando um GET em /aderencia/.
 
+### Performance
 
+Ao enviar um POST para se calcular volumetria e ROC score do modelo referenciado no parâmetro do endpoint, o módulo [./monitoring/app/api/endpoints/performance.py](monitoring/app/api/endpoints/performance.py) é o responsável por determinar tais respostar.
+
+Inicialmente, é verificado se o parâmetro do endpoint correspondente à versão do modelo é adequado. Dessa maneira, o modelo [./monitoring/model.pkl](monitoring/model.pkl) é lido utilizando *pickle* e o enhancing é feito caso se deseje a métrica do modelo melhorado. Para realizar tal feito, foi verificado que as bases de dados com as quais o modelo é alimentado são desbalanceadas quanto às classes do TARGET. Assim, foi definido um peso de classes no *estimator* da pipeline default e retreinado o modelo considerando [./datasets/credit_01/train.gz](datasets/credit_01/train.gz). Após isso, é utilizada a pipeline para realizar a predição da lista de registros passada no "body" da requisição e definir finalmente o ROC score.
+
+Para o caso da volumetria, a lista de registros é transformada em um ```DataFrame``` e é aplicada à coluna REF_DATE um mapping para se ter os meses do ano equivalentes. Com isso, a volumetria é determinada fazendo ```REF_DATE.value_counts()``` e salvando o resultado em um novo JSON.
+
+Os dois valores são colocados em um novo dicionário que é retornado como resposta à requisição como um JSON.
 
 
 
