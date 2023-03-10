@@ -64,10 +64,14 @@ Inicialmente, o modelo [./monitoring/model.pkl](monitoring/model.pkl) é lido ut
 Com isso, tanto o dataset utilizado de referência e aquele cujo caminho local foi passado na requisição são lidos como um ```DataFrame``` e suas distribuições de score determinadas pelo modelo são calculadas. Finalmente, utiliza-se [ks_2samp](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html) para realizar o teste estatístico e as duas métricas *statistic* e *p-value* são colocadas em um dicionário e retornadas como resposta à requisição como um JSON.
 
 
+### Pasta utils
+
+Nessa pasta estão alguns módulos utilizados frequentemente na API para fazer leitura de arquivos de dados, leitura do modelo e um pré-processamento das [bases](datasets/credit_01). Foi verificado que a pipeline referente ao [modelo](monitoring/model.pkl) espera dados estruturados com 120 colunas, sendo uma delas o TARGET. Assim, no módulo [preprocessing.py](monitoring/app/utils/preprocessing.py) é feita uma inferência e dropadas as colunas com porcentagem de valores nulos maior que 75% e quatro outras que não agregam na predição. Esse processo nos retorna um ```DataFrame``` adequado à pipeline.
 
 
+### Logging
 
-
+Em [./monitoring/monitoring.log](monitoring/monitoring.log) é possível verificar algumas informações acerca do processamento das requisições feitas para a API. Essas informações são formatadas e adicionadas nesse arquivo utilizando ```logging``` da *standard library* de python.
 
 
 
