@@ -74,6 +74,10 @@ Ao enviar um POST para se calcular as métricas resultantes do teste estatístic
    - Ao começar a executar localmente o servidor seguindo as instruções acima, é possível verificar algumas informações acerca do processamento das requisições feitas para a API utilizando ```logging``` da *standard library* de python. Essas informações são formatadas e adicionadas em um arquivo de log que será criado em ```./monitoring/monitoring.log```.
 
 
+### Dockerfile
+
+   - Houve uma tentativa de se utilizar Docker para montar um container da aplicação. No entanto, encontrei problemas para conseguir buildar o container, mesmo tendo conseguido criar a imagem necessária. O [Dockerfile](/monitoring/Dockerfile) contém as instruções que julguei necessárias a execução virtualizada da aplicação. 
+
 ### Jupyter Notebook
 
    - Em [./monitoring/monitoring-examples.ipynb](/monitoring/monitoring-examples.ipynb), tem-se exemplos de execução de POSTs nos endpoints da API.
