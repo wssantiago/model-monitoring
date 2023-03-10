@@ -76,10 +76,12 @@ Ao enviar um POST para se calcular as métricas resultantes do teste estatístic
 
 ### Jupyter Notebook
 
-   - Em [./monitoring/monitoring-examples.ipynb](/monitoring/monitoring-examples.ipynb) tem-se exemplos de execução de POSTs nos endpoints da API.
+   - Em [./monitoring/monitoring-examples.ipynb](/monitoring/monitoring-examples.ipynb), tem-se exemplos de execução de POSTs nos endpoints da API.
 
 
-
+### Perguntas
+   
+   - Em [./monitoring/Perguntas.pdf](/monitoring/Perguntas.pdf), encontram-se as respostas para as duas perguntas propostas.
 
 
 
