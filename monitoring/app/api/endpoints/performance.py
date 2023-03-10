@@ -23,7 +23,7 @@ def enhance_model(model):
         "The POST specified the enhanced model. Starting model enhancing...")
     try:
         model.steps.pop(1)
-        model.steps.append(['encoder', DecisionTreeClassifier(max_depth=8, min_samples_leaf=0.15371419169712677,
+        model.steps.append(['estimator', DecisionTreeClassifier(max_depth=8, min_samples_leaf=0.15371419169712677,
                            min_samples_split=0.2572078354486276, class_weight={0: 1.0, 1: 0.28})])
 
         logging.info(
