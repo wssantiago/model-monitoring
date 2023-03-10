@@ -48,30 +48,30 @@ Em [./monitoring/app/main.py](monitoring/app/main.py) estão referenciados dois 
 
 Ao enviar um POST para se calcular volumetria e ROC score do modelo referenciado no parâmetro do endpoint, o módulo [performance.py](monitoring/app/api/endpoints/performance.py) é o responsável por determinar tais respostas.
 
-Inicialmente, é verificado se o parâmetro do endpoint correspondente à versão do modelo é adequado. Dessa maneira, o modelo [./monitoring/model.pkl](monitoring/model.pkl) é lido utilizando *pickle* e o enhancing é feito caso se deseje a métrica do modelo melhorado. Para realizar tal feito, foi verificado que as bases de dados com as quais o modelo é alimentado são desbalanceadas quanto às classes do TARGET. Assim, foi definido um peso de classes no *estimator* da pipeline default e retreinado o modelo considerando [./datasets/credit_01/train.gz](datasets/credit_01/train.gz). Após isso, é utilizada a pipeline para realizar a predição da lista de registros passada no "body" da requisição e definir finalmente o ROC score.
+   - Inicialmente, é verificado se o parâmetro do endpoint correspondente à versão do modelo é adequado. Dessa maneira, o modelo [./monitoring/model.pkl](monitoring/model.pkl) é lido utilizando *pickle* e o enhancing é feito caso se deseje a métrica do modelo melhorado. Para realizar tal feito, foi verificado que as bases de dados com as quais o modelo é alimentado são desbalanceadas quanto às classes do TARGET. Assim, foi definido um peso de classes no *estimator* da pipeline default e retreinado o modelo considerando [./datasets/credit_01/train.gz](datasets/credit_01/train.gz). Após isso, é utilizada a pipeline para realizar a predição da lista de registros passada no "body" da requisição e definir finalmente o ROC score.
 
-Para o caso da volumetria, a lista de registros é transformada em um ```DataFrame``` e é aplicada à coluna REF_DATE um mapping para se ter os meses do ano equivalentes. Com isso, a volumetria é determinada fazendo ```REF_DATE.value_counts()``` e salvando o resultado em um novo JSON.
+   - Para o caso da volumetria, a lista de registros é transformada em um ```DataFrame``` e é aplicada à coluna REF_DATE um mapping para se ter os meses do ano equivalentes. Com isso, a volumetria é determinada fazendo ```REF_DATE.value_counts()``` e salvando o resultado em um novo JSON.
 
-Os dois valores são colocados em um novo dicionário que é retornado como resposta à requisição como um JSON.
+   - Os dois valores são colocados em um novo dicionário que é retornado como resposta à requisição como um JSON.
 
 
 ### Aderência
 
 Ao enviar um POST para se calcular as métricas resultantes do teste estatístico Kolmogorov-Smirnov entre as bases da requisição e a de [referência](datasets/credit_01/test.gz), o módulo [aderencia.py](monitoring/app/api/endpoints/aderencia.py) é o responsável por determinar tais valores.
 
-Inicialmente, o modelo [./monitoring/model.pkl](monitoring/model.pkl) é lido utilizando *pickle* e o encoder da pipeline é reconfigurado setando ```handle_unknown='ignore'```. Foi verificado que, para a base [./datasets/credit_01/oot.gz](datasets/credit_01/train.gz), o ```ColumnTransformer``` identificava novas categorias em determinadas features dado que é uma distribuição de dados coletada após aquelas utilizadas no treinamento do modelo.
+   - Inicialmente, o modelo [./monitoring/model.pkl](monitoring/model.pkl) é lido utilizando *pickle* e o encoder da pipeline é reconfigurado setando ```handle_unknown='ignore'```. Foi verificado que, para a base [./datasets/credit_01/oot.gz](datasets/credit_01/train.gz), o ```ColumnTransformer``` identificava novas categorias em determinadas features dado que é uma distribuição de dados coletada após aquelas utilizadas no treinamento do modelo.
 
-Com isso, tanto o dataset utilizado de referência e aquele cujo caminho local foi passado na requisição são lidos como um ```DataFrame``` e suas distribuições de score determinadas pelo modelo são calculadas. Finalmente, utiliza-se [ks_2samp](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html) para realizar o teste estatístico e as duas métricas *statistic* e *p-value* são colocadas em um dicionário e retornadas como resposta à requisição como um JSON.
+   - Com isso, tanto o dataset utilizado de referência e aquele cujo caminho local foi passado na requisição são lidos como um ```DataFrame``` e suas distribuições de score determinadas pelo modelo são calculadas. Finalmente, utiliza-se [ks_2samp](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html) para realizar o teste estatístico e as duas métricas *statistic* e *p-value* são colocadas em um dicionário e retornadas como resposta à requisição como um JSON.
 
 
 ### Pasta utils
 
-Nessa pasta estão alguns módulos utilizados frequentemente na API para fazer leitura de arquivos de dados, leitura do modelo e um pré-processamento das [bases](datasets/credit_01). Foi verificado que a pipeline referente ao [modelo](monitoring/model.pkl) espera dados estruturados com 120 colunas, sendo uma delas o TARGET. Assim, no módulo [preprocessing.py](monitoring/app/utils/preprocessing.py) é feita uma inferência e dropadas as colunas com porcentagem de valores nulos maior que 75% e quatro outras que não agregam na predição. Esse processo nos retorna um ```DataFrame``` adequado à pipeline.
+   - Nessa pasta estão alguns módulos utilizados frequentemente na API para fazer leitura de arquivos de dados, leitura do modelo e um pré-processamento das [bases](datasets/credit_01). Foi verificado que a pipeline referente ao [modelo](monitoring/model.pkl) espera dados estruturados com 120 colunas, sendo uma delas o TARGET. Assim, no módulo [preprocessing.py](monitoring/app/utils/preprocessing.py) é feita uma inferência e dropadas as colunas com porcentagem de valores nulos maior que 75% e quatro outras que não agregam na predição. Esse processo nos retorna um ```DataFrame``` adequado à pipeline.
 
 
 ### Logging
 
-Em [./monitoring/monitoring.log](monitoring/monitoring.log) é possível verificar algumas informações acerca do processamento das requisições feitas para a API. Essas informações são formatadas e adicionadas nesse arquivo utilizando ```logging``` da *standard library* de python.
+   - Em [./monitoring/monitoring.log](monitoring/monitoring.log) é possível verificar algumas informações acerca do processamento das requisições feitas para a API. Essas informações são formatadas e adicionadas nesse arquivo utilizando ```logging``` da *standard library* de python.
 
 
 
