@@ -16,10 +16,9 @@ Esse comando cria o ambiente virtual com o nome de *monitoring-venv* e para ativ
 
 #### Dependências
 
-Após ativar o ambiente virtual, utilize o ([pip](https://pip.pypa.io/en/stable/installation/)) para instalar as dependências contidas em [./monitoring/requirements.txt](monitoring/requirements.txt). Para isso, navegue para o diretório [./monitoring](monitoring) e instale as dependências executando:
+Após ativar o ambiente virtual, utilize o ([pip](https://pip.pypa.io/en/stable/installation/)) para instalar as dependências contidas em [./monitoring/requirements.txt](monitoring/requirements.txt). Para isso, estando no diretório [./monitoring](monitoring), instale as dependências executando:
 
 ```
-cd monitoring
 pip install -r requirements.txt
 ```
 
