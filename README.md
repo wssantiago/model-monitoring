@@ -85,7 +85,7 @@ Ao enviar um POST para se calcular as métricas resultantes do teste estatístic
 
 ### Perguntas
    
-   - Em [./monitoring/Perguntas.pdf](/monitoring/Perguntas.pdf), encontram-se as respostas para as duas perguntas propostas.
+   - Em [./Perguntas.pdf](/Perguntas.pdf), encontram-se as respostas para as duas perguntas propostas.
 
 
 
