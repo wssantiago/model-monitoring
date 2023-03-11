@@ -2,9 +2,10 @@
  FastAPI application for ML model monitoring (using python:3.10.4)
  
 ### Instalação
-Ao clonar este repositório, navegue para o diretório [./monitoring](monitoring) e crie um python virtual environment. No Windows, pode-se utilizar o seguinte comando no terminal:
+Ao clonar este repositório, navegue para o diretório [./monitoring](monitoring) e crie um python virtual environment. No Windows, pode-se utilizar os seguintes comandos no terminal:
  
 ```
+cd monitoring
 python -m venv monitoring-venv
 ```
  
@@ -28,6 +29,8 @@ Agora, a API está pronta para ser executada. Para isso, navegue para o diretór
 cd app
 uvicorn main:app --host 0.0.0.0 --port 8001
 ```
+
+Uma vez rodando, pode-se utilizar o [notebook](/monitoring/monitoring-examples.ipynb) para realizar as chamadas à API.
 
 ### API
 
